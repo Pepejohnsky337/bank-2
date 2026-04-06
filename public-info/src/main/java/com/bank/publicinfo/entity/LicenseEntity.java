@@ -1,10 +1,11 @@
 package com.bank.publicinfo.entity;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder;
+import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Column;
@@ -26,6 +27,7 @@ import java.util.Objects;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "license", schema = "public_bank_information")
 public class LicenseEntity {
