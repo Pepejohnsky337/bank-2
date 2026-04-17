@@ -11,4 +11,6 @@ public interface TransferService {
     CardTransferDto readCard(Long id);
 
     PhoneTransferDto readPhone(Long id);
+
+    void evict();
 }

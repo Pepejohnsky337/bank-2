@@ -7,6 +7,7 @@ import com.bank.publicinfo.service.feign.service.AntifraudService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +33,10 @@ public class AntifraudController {
     @GetMapping("/phone/read/{id}")
     SuspiciousPhoneTransferDto readPhone(@PathVariable("id") Long id) {
         return antifraudService.readPhone(id);
+    }
+
+    @PostMapping("/evict")
+    public void evict() {
+        antifraudService.evict();
     }
 }

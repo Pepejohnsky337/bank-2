@@ -11,4 +11,6 @@ public interface AntifraudService {
     SuspiciousCardTransferDto readCard(Long id);
 
     SuspiciousPhoneTransferDto readPhone(Long id);
+
+    void evict();
 }
