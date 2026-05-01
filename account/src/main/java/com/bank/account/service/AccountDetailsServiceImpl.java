@@ -83,4 +83,3 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
         return mapper.toDto(updateAccountDetails);
     }
 }
-

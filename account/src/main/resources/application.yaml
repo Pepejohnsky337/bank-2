@@ -8,3 +8,12 @@ spring:
       service-url:
         defaultZone:
           http://localhost:8761/eureka/
+
+logging:
+  level:
+    com.bank.account.client: DEBUG
+    org.springframework.cache: DEBUG
+    org.ehcache: INFO
+    feign: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
