@@ -27,3 +27,13 @@ spring:
     drop-first: false
   application:
     name: public-info-app
+kafka:
+  bootstrap-servers: localhost:9092
+  producer:
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+app:
+  kafka:
+    topics:
+      public-info-events: public-info-events
+

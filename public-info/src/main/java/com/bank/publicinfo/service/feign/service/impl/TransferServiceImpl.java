@@ -6,6 +6,7 @@ import com.bank.publicinfo.dto.feign.PhoneTransferDto;
 import com.bank.publicinfo.feign.client.FeignTransferClient;
 import com.bank.publicinfo.service.feign.service.TransferService;
 
+import com.bank.publicinfo.service.kafka.KafkaProducerService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class TransferServiceImpl implements TransferService {
 
     private final FeignTransferClient feignClient;
+    private final KafkaProducerService kafkaProducerService;
 
     @SneakyThrows
     @Override
@@ -30,6 +32,8 @@ public class TransferServiceImpl implements TransferService {
         Thread.sleep(3000);
         final AccountTransferDto accountTransferDto = feignClient.readAccount(id);
         log.info("readAccount закеширован");
+        final String message = "Выполнен Feign-вызов AccountTransferDto.";
+        kafkaProducerService.sendEvent(message);
         return accountTransferDto;
     }
 
@@ -41,6 +45,8 @@ public class TransferServiceImpl implements TransferService {
         Thread.sleep(3000);
         final CardTransferDto cardTransferDto = feignClient.readCard(id);
         log.info("readCard закеширован");
+        final String message = "Выполнен Feign-вызов CardTransferDto.";
+        kafkaProducerService.sendEvent(message);
         return cardTransferDto;
     }
 
@@ -52,6 +58,8 @@ public class TransferServiceImpl implements TransferService {
         Thread.sleep(3000);
         final PhoneTransferDto phoneTransferDto = feignClient.readPhone(id);
         log.info("readPhone закеширован");
+        final String message = "Выполнен Feign-вызов PhoneTransferDto.";
+        kafkaProducerService.sendEvent(message);
         return phoneTransferDto;
     }
 
@@ -60,4 +68,3 @@ public class TransferServiceImpl implements TransferService {
     public void evict() {
     }
 }
-
