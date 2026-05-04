@@ -4,6 +4,7 @@ import com.bank.publicinfo.dto.feign.SuspiciousAccountTransferDto;
 import com.bank.publicinfo.dto.feign.SuspiciousCardTransferDto;
 import com.bank.publicinfo.dto.feign.SuspiciousPhoneTransferDto;
 import com.bank.publicinfo.feign.client.FeignAntifraudClient;
+import com.bank.publicinfo.service.kafka.KafkaProducerService;
 import com.bank.publicinfo.service.feign.service.AntifraudService;
 
 import lombok.SneakyThrows;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class AntifraudServiceImpl implements AntifraudService {
 
     private final FeignAntifraudClient feignClient;
+    private final KafkaProducerService kafkaProducerService;
 
     @SneakyThrows
     @Override
@@ -31,6 +33,8 @@ public class AntifraudServiceImpl implements AntifraudService {
         Thread.sleep(3000);
         final SuspiciousAccountTransferDto suspiciousAccountTransferDto = feignClient.readAccount(id);
         log.info("readAccount закеширован");
+        final String message = "Выполнен Feign-вызов SuspiciousAccountTransferDto.";
+        kafkaProducerService.sendEvent(message);
         return suspiciousAccountTransferDto;
     }
 
@@ -42,6 +46,8 @@ public class AntifraudServiceImpl implements AntifraudService {
         Thread.sleep(3000);
         final SuspiciousCardTransferDto suspiciousCardTransferDto = feignClient.readCard(id);
         log.info("readCard закеширован");
+        final String message = "Выполнен Feign-вызов SuspiciousCardTransferDto.";
+        kafkaProducerService.sendEvent(message);
         return suspiciousCardTransferDto;
     }
 
@@ -53,6 +59,8 @@ public class AntifraudServiceImpl implements AntifraudService {
         Thread.sleep(3000);
         final SuspiciousPhoneTransferDto suspiciousPhoneTransferDto = feignClient.readPhone(id);
         log.info("readPhone закеширован");
+        final String message = "Выполнен Feign-вызов SuspiciousPhoneTransferDto.";
+        kafkaProducerService.sendEvent(message);
         return suspiciousPhoneTransferDto;
     }
 
@@ -61,4 +69,3 @@ public class AntifraudServiceImpl implements AntifraudService {
     public void evict() {
     }
 }
-
