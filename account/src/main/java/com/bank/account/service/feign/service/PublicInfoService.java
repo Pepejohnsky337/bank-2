@@ -5,4 +5,6 @@ import com.bank.account.dto.feign.BankDetailsDto;
 public interface PublicInfoService {
 
     BankDetailsDto getBankDetailsById(Long id);
+
+    void evict();
 }
